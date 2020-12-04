@@ -2,6 +2,8 @@
 
 > A* (A-star) implementation with vue js for the ui, and Js vanilla for the algorithm
 
+[Live Preview](https://a-star-vue.web.app/)
+
 ## Run Project
 
 ``` bash

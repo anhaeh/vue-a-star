@@ -77,6 +77,7 @@ export default {
       this.processing = false
     },
     clickCell: function (payload) {
+      this.cleanPath()
       this.[this.clickCallback](payload)
     },
     addWall: function (payload) {
@@ -98,6 +99,7 @@ export default {
       this.path = []
     },
     loadMap: function () {
+      this.cleanPath()
       let newInstanceMap = JSON.parse(JSON.stringify(mapExample))
       this.map = newInstanceMap.map
       this.startPosition = newInstanceMap.start
