@@ -28,7 +28,6 @@
                     @start="start"
                     @cleanWalls="cleanWalls"
                     @loadMap="loadMap"
-                    @changeAnimation="showAnimation = !showAnimation"
     ></action-buttons>
   </div>
 </template>
@@ -55,12 +54,11 @@ export default {
       cellsProcessed: [],
       clickCallback: undefined,
       timeElapsed: 0,
-      processing: false,
-      showAnimation: true
+      processing: false
     }
   },
   methods: {
-    start: async function () {
+    start: async function (showAnimation) {
       this.processing = true
       this.cleanPath()
       let startX = parseInt(this.startPosition.split('_')[1])
@@ -73,7 +71,7 @@ export default {
       generator.generate()
 
       this.timeElapsed = Math.round(new Date() - startTime)
-      if (this.showAnimation) {
+      if (showAnimation) {
         await Promise.all(generator.cells.map(async (x) => {
           await new Promise(r => setTimeout(r, 25))
           this.cellsProcessed.push(x)

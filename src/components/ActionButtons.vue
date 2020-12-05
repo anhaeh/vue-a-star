@@ -2,7 +2,7 @@
   <div class="actions is-justify-content-center">
     <div class="field">
       <label class="checkbox">
-        <input type="checkbox" checked @input="$emit('changeAnimation')">
+        <input type="checkbox" v-model="showAnimation">
         Show animation
       </label>
     </div>
@@ -13,7 +13,7 @@
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-link"
-                @click="$emit('start')"
+                @click="$emit('start', showAnimation)"
                 :disabled="processing"
         >
           Start
@@ -45,6 +45,11 @@ export default {
   props: {
     processing: {
       required: true
+    }
+  },
+  data () {
+    return {
+      showAnimation: true
     }
   }
 }
