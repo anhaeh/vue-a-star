@@ -7,7 +7,7 @@
       </label>
     </div>
     <div class="notification is-primary is-light">
-      You can drag and drop the start point and end point.<br>
+      You can drag and drop start point and end point.<br>
       You can add/remove walls with left click or also holding down the click.
     </div>
     <div class="field is-grouped">
