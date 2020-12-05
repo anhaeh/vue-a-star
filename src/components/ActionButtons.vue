@@ -7,8 +7,8 @@
       </label>
     </div>
     <div class="notification is-primary is-light">
-      You can move start point, end point, and add/remove walls with left click. <br>
-      And also holding down the click you can draw walls.
+      You can drag and drop the start point and end point.<br>
+      You can add/remove walls with left click or also holding down the click.
     </div>
     <div class="field is-grouped">
       <div class="control">
