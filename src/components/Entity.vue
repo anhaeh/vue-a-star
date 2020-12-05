@@ -1,5 +1,5 @@
 <template>
-  <img class="entity"
+  <img :class="[this.name, 'entity']"
        :src="image"
        @click.stop
   >

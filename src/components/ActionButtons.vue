@@ -1,19 +1,14 @@
 <template>
-  <div class="actions">
+  <div class="actions is-justify-content-center">
     <div class="field">
-      <label class="label" for="action">Action click</label>
-      <div class="select" id="action">
-        <select v-model="action"
-                @change="notifyClickAction"
-        >
-          <option v-for="(action, key) in clickActions"
-                  :key="key"
-                  :value="action.value"
-          >
-            {{ action.text }}
-          </option>
-        </select>
-      </div>
+      <label class="checkbox">
+        <input type="checkbox" checked @input="$emit('changeAnimation')">
+        Show animation
+      </label>
+    </div>
+    <div class="notification is-primary is-light">
+      You can move start point, end point, and add/remove walls with left click. <br>
+      And also holding down the click you can draw walls.
     </div>
     <div class="field is-grouped">
       <div class="control">
@@ -51,40 +46,13 @@ export default {
     processing: {
       required: true
     }
-  },
-  data () {
-    return {
-      action: 'addWall',
-      clickActions: [
-        {
-          text: 'Edit walls',
-          value: 'addWall',
-          callback: 'addWall'
-        },
-        {
-          text: 'Move start',
-          value: 'start',
-          callback: 'moveStart'
-        },
-        {
-          text: 'Move end',
-          value: 'end',
-          callback: 'moveEnd'
-        }
-      ]
-    }
-  },
-  methods: {
-    notifyClickAction: function () {
-      this.$emit('updateClickCallback', this.clickActions.find(x => x.value === this.action).callback)
-    }
-  },
-  mounted() {
-    this.notifyClickAction()
   }
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
+  .actions
+    display: flex
+    flex-direction: column
+    align-items: center
 </style>

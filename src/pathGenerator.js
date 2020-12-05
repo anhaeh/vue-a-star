@@ -40,16 +40,22 @@ class PathGenerator {
       cost: 9999
     })
     this.currentCell = this.cells[0]
-    this.findPath()
-    let lastNode = this.cells.filter(cell => cell.cost < 1)[0]
-    this.path = []
-    for(;;) {
-      this.path.push(lastNode)
-      if (lastNode.parent) {
-        lastNode = lastNode.parent
-      } else {
-        break
+    try {
+      this.findPath()
+      let lastNode = this.cells.filter(cell => cell.cost < 1)[0]
+      this.path = []
+      for(;;) {
+        this.path.push(lastNode)
+        if (lastNode.parent) {
+          lastNode = lastNode.parent
+        } else {
+          break
+        }
       }
+    }
+    catch (e) {
+      console.log('no result')
+      return 1
     }
   }
 
@@ -76,16 +82,9 @@ class PathGenerator {
         }
       }
       let cells = this.cells.filter(x => !x.processed).sort((a, b) => ((a.cost + a.pathId) - (b.cost + b.pathId)))
-      try {
-        cells[0].processed = 1
-      }
-      catch (e) {
-        // eslint-disable-next-line
-        console.log('no result')
-        break
-      }
       this.currentCell = cells[0]
-      if (cells[0].cost < 1) {
+      this.currentCell.processed = 1
+      if (this.currentCell.cost < 1) {
         break
       }
     }

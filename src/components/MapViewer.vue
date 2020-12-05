@@ -51,9 +51,15 @@ export default {
     }
   },
   created() {
+    const mapping = {
+      player: 'moveStart',
+      chest: 'moveEnd',
+      cell: 'addWall'
+    }
     window.addEventListener("mousedown", () => {
-      if (['entity', 'cell'].includes(event.target.classList[0])) {
+      if (['player', 'chest', 'cell'].includes(event.target.classList[0])) {
         event.preventDefault();
+        this.$emit('updateClickCallback', mapping[event.target.classList[0]])
         this.mouseDown = true
       }
     },  true)

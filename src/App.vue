@@ -20,14 +20,15 @@
                :endPosition="endPosition"
                :path="path"
                :cellsProcessed="cellsProcessed"
+               @updateClickCallback="(payload) => clickCallback = payload"
                @clickCell="clickCell"
     ></mapViewer>
     <hr>
     <action-buttons :processing="processing"
                     @start="start"
-                    @updateClickCallback="(payload) => clickCallback = payload"
                     @cleanWalls="cleanWalls"
                     @loadMap="loadMap"
+                    @changeAnimation="showAnimation = !showAnimation"
     ></action-buttons>
   </div>
 </template>
@@ -54,7 +55,8 @@ export default {
       cellsProcessed: [],
       clickCallback: undefined,
       timeElapsed: 0,
-      processing: false
+      processing: false,
+      showAnimation: true
     }
   },
   methods: {
@@ -65,20 +67,28 @@ export default {
       let startY = parseInt(this.startPosition.split('_')[0])
       let exitX = parseInt(this.endPosition.split('_')[1])
       let exitY = parseInt(this.endPosition.split('_')[0])
-      let generator = new PathGenerator([startX, startY], [exitX, exitY], this.map)
       let startTime = new Date()
+      /** Generate the path **/
+      let generator = new PathGenerator([startX, startY], [exitX, exitY], this.map)
       generator.generate()
+
       this.timeElapsed = Math.round(new Date() - startTime)
-      await Promise.all(generator.cells.map(async (x) => {
-        await new Promise(r => setTimeout(r, 25))
-        this.cellsProcessed.push(x)
-      }))
+      if (this.showAnimation) {
+        await Promise.all(generator.cells.map(async (x) => {
+          await new Promise(r => setTimeout(r, 25))
+          this.cellsProcessed.push(x)
+        }))
+      } else {
+        this.cellsProcessed = generator.cells
+      }
       this.path = generator.path
       this.processing = false
     },
     clickCell: function (payload) {
-      this.cleanPath()
-      this.[this.clickCallback](payload)
+      if (!this.processing) {
+        this.cleanPath()
+        this.[this.clickCallback](payload)
+      }
     },
     addWall: function (payload) {
       let newVal = this.map[payload.y][payload.x] === 0 ? 1 : 0
