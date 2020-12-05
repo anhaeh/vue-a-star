@@ -54,6 +54,7 @@ class PathGenerator {
       }
     }
     catch (e) {
+      // eslint-disable-next-line
       console.log('no result')
       return 1
     }
