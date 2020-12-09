@@ -1,11 +1,11 @@
 <template>
   <div
-    :class="['cell', { '--is-wall': isWall }, { '--path': isInPath }, { '--processed': processed }]"
+    :class="['cell__action', 'cell', { '--is-wall': isWall }, { '--path': isInPath }, { '--processed': processed }]"
     @click="click()"
     @dragover.prevent
     @mouseover="mouseDown ? click() : undefined"
   >
-    <span class="cell__cost" v-if="$parent.showCellCost && processed">{{ processed.cost }}</span>
+    <span class="cell__action cell__cost" v-if="$parent.showCellCost && processed">{{ processed.cost }}</span>
     <entity v-if="isStart || isEnd" :name="isStart ? 'player' : 'chest'"></entity>
   </div>
 </template>
