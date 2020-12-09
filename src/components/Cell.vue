@@ -1,10 +1,11 @@
 <template>
   <div
-    :class="['cell', { '--is-wall': isWall } ,{ '--path': isInPath }, { '--processed': processed }]"
+    :class="['cell', { '--is-wall': isWall }, { '--path': isInPath }, { '--processed': processed }]"
     @click="click()"
     @dragover.prevent
     @mouseover="mouseDown ? click() : undefined"
   >
+    <span class="cell__cost" v-if="$parent.showCellCost && processed">{{ processed.cost }}</span>
     <entity v-if="isStart || isEnd" :name="isStart ? 'player' : 'chest'"></entity>
   </div>
 </template>
@@ -55,6 +56,13 @@ export default {
   background-repeat: no-repeat
   background-image: url("../assets/floor.png")
   background-size: contain
+  .cell__cost
+    position: absolute
+    bottom: 1px
+    right: 1px
+    color: white
+    font-size: 11px
+    z-index: -1
   &.--is-wall
     background-image: url("../assets/wall.png")
   &.--path

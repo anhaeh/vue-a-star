@@ -1,11 +1,5 @@
 <template>
   <div class="actions is-justify-content-center">
-    <div class="field">
-      <label class="checkbox">
-        <input type="checkbox" v-model="showAnimation">
-        Show animation
-      </label>
-    </div>
     <div class="notification is-primary is-light">
       You can drag and drop start point and end point.<br>
       You can add/remove walls with left click or also holding down the click.
@@ -13,7 +7,7 @@
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-link"
-                @click="$emit('start', showAnimation)"
+                @click="start"
                 :disabled="processing"
         >
           Start
@@ -36,6 +30,16 @@
         </button>
       </div>
     </div>
+    <div class="field is-grouped mt-3">
+      <label class="checkbox mr-3">
+        <input type="checkbox" v-model="showAnimation">
+        Show animation
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" v-model="showCellCost">
+        Show cell cost
+      </label>
+    </div>
   </div>
 </template>
 
@@ -49,7 +53,16 @@ export default {
   },
   data () {
     return {
-      showAnimation: true
+      showAnimation: true,
+      showCellCost: false
+    }
+  },
+  methods: {
+    start: function () {
+      this.$emit('start', {
+        showAnimation: this.showAnimation,
+        showCellCost: this.showCellCost
+      })
     }
   }
 }

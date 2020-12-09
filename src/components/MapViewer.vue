@@ -41,6 +41,10 @@ export default {
       required: true,
       type: Array
     },
+    showCellCost: {
+      required: false,
+      type: Boolean
+    }
   },
   components: {
     Cell

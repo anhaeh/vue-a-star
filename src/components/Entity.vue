@@ -23,8 +23,9 @@ export default {
 
 <style scoped lang="sass">
   .entity
-    z-index: 1
     width: 100%
     height: 100%
     object-fit: contain
+    img
+      z-index: 1
 </style>

@@ -20,6 +20,7 @@
                :endPosition="endPosition"
                :path="path"
                :cellsProcessed="cellsProcessed"
+               :show-cell-cost="showCellCost"
                @updateClickCallback="(payload) => clickCallback = payload"
                @clickCell="clickCell"
     ></mapViewer>
@@ -54,11 +55,13 @@ export default {
       cellsProcessed: [],
       clickCallback: undefined,
       timeElapsed: 0,
-      processing: false
+      processing: false,
+      showCellCost: false
     }
   },
   methods: {
-    start: async function (showAnimation) {
+    start: async function (options) {
+      this.showCellCost = options.showCellCost
       this.processing = true
       this.cleanPath()
       let startX = parseInt(this.startPosition.split('_')[1])
@@ -71,7 +74,7 @@ export default {
       generator.generate()
 
       this.timeElapsed = Math.round(new Date() - startTime)
-      if (showAnimation) {
+      if (options.showAnimation) {
         await Promise.all(generator.cells.map(async (x) => {
           await new Promise(r => setTimeout(r, 25))
           this.cellsProcessed.push(x)
