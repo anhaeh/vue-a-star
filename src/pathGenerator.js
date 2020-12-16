@@ -2,7 +2,7 @@ class PathGenerator {
   /**
    * @param {Object} start - The start coords object. ex { x: 1, y: 2 }
    * @param {Object} end - The end coords object. ex { x: 3, y: 5 }
-   * @param {Array} map - The map matrix. ex: [[0,0,0], [0,1,0], [0,1,0]]
+   * @param {Array} map - The map matrix, using 0 as available, and 1 as unavailable. ex: [[0,0,0], [0,1,0], [0,1,0]]
    */
   constructor(start, end, map) {
     this.start = start
