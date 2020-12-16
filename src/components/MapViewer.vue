@@ -4,8 +4,8 @@
       <Cell
           v-for="(cell, cellIdx) in row"
           :key="rowIdx + '_' + cellIdx"
-          :is-start="startPosition === `${rowIdx}_${cellIdx}`"
-          :is-end="endPosition === `${rowIdx}_${cellIdx}`"
+          :is-start="startPosition.x === cellIdx && startPosition.y === rowIdx"
+          :is-end="endPosition.x === cellIdx && endPosition.y === rowIdx"
           :id="rowIdx + '_' + cellIdx"
           :value="cell"
           :mouse-down="mouseDown"
@@ -27,11 +27,11 @@ export default {
     },
     startPosition: {
       required: true,
-      type: String
+      type: Object
     },
     endPosition: {
       required: true,
-      type: String
+      type: Object
     },
     path: {
       required: true,

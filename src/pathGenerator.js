@@ -1,7 +1,7 @@
 class PathGenerator {
   /**
-   * @param {Array} start - The start point [X, Y]
-   * @param {Array} end - The end point [X, Y]
+   * @param {Object} start - The start coords object. ex { x: 1, y: 2 }
+   * @param {Object} end - The end coords object. ex { x: 3, y: 5 }
    * @param {Array} map - The map matrix. ex: [[0,0,0], [0,1,0], [0,1,0]]
    */
   constructor(start, end, map) {
@@ -14,8 +14,8 @@ class PathGenerator {
   }
 
   calculateDistance(x, y) {
-    let diffY = Math.abs(y - this.end[1])
-    let diffX = Math.abs(x - this.end[0])
+    let diffY = Math.abs(y - this.end.y)
+    let diffX = Math.abs(x - this.end.x)
     return diffX + diffY
   }
 
@@ -24,6 +24,7 @@ class PathGenerator {
   }
 
   isValidCell(nextX, nextY) {
+    // exist and is a free cell
     return this.map[nextY] && this.map[nextY][nextX] === 0
   }
 
@@ -34,8 +35,8 @@ class PathGenerator {
   generate() {
     this.cells.push({
       processed: 1,
-      x: this.start[0],
-      y:  this.start[1],
+      x: this.start.x,
+      y: this.start.y,
       pathId: 0,
       cost: 9999
     })

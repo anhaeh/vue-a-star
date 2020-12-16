@@ -21,15 +21,10 @@ export default {
   methods: {
     click: function () {
       this.$emit('clickCell', {
-        x: this.id.split('_')[1],
-        y: this.id.split('_')[0]
+        x: parseInt(this.id.split('_')[1]),
+        y: parseInt(this.id.split('_')[0])
       })
-    },
-    move: function () {
-      if (!this.isStart && this.value === 0) {
-        this.$emit("move", this.id);
-      }
-    },
+    }
   },
   computed: {
     isInPath: function () {

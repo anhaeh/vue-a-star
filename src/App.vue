@@ -49,8 +49,8 @@ export default {
   data() {
     return {
       map: null,
-      startPosition: "",
-      endPosition: "",
+      startPosition: undefined,
+      endPosition: undefined,
       path: [],
       cellsProcessed: [],
       clickCallback: undefined,
@@ -64,13 +64,10 @@ export default {
       this.showCellCost = options.showCellCost
       this.processing = true
       this.cleanPath()
-      let startX = parseInt(this.startPosition.split('_')[1])
-      let startY = parseInt(this.startPosition.split('_')[0])
-      let exitX = parseInt(this.endPosition.split('_')[1])
-      let exitY = parseInt(this.endPosition.split('_')[0])
       let startTime = new Date()
+
       /** Generate the path **/
-      let generator = new PathGenerator([startX, startY], [exitX, exitY], this.map)
+      let generator = new PathGenerator(this.startPosition, this.endPosition, this.map)
       generator.generate()
 
       this.timeElapsed = Math.round(new Date() - startTime)
@@ -96,10 +93,10 @@ export default {
       this.$set(this.map[payload.y], payload.x, newVal)
     },
     moveStart: function (payload) {
-      this.startPosition = `${payload.y}_${payload.x}`
+      this.startPosition = payload
     },
     moveEnd: function (payload) {
-      this.endPosition = `${payload.y}_${payload.x}`
+      this.endPosition = payload
     },
     cleanWalls: function () {
       this.cleanPath()
