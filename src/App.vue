@@ -85,7 +85,7 @@ export default {
     clickCell: function (payload) {
       if (!this.processing) {
         this.cleanPath()
-        this.[this.clickCallback](payload)
+        this[this.clickCallback](payload)
       }
     },
     addWall: function (payload) {
