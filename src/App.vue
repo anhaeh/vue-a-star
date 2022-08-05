@@ -14,7 +14,6 @@
         </div>
       </div>
     </div>
-
     <mapViewer :map="map"
                :startPosition="startPosition"
                :endPosition="endPosition"
@@ -30,6 +29,14 @@
                     @cleanWalls="cleanWalls"
                     @loadMap="loadMap"
     ></action-buttons>
+    <article v-if="error" class="message is-danger">
+      <div class="message-header">
+        <p>Error</p>
+      </div>
+      <div class="message-body">
+        Unable to find a valid path. Please check other combination.
+      </div>
+    </article>
   </div>
 </template>
 
@@ -56,11 +63,13 @@ export default {
       clickCallback: undefined,
       timeElapsed: 0,
       processing: false,
-      showCellCost: false
+      showCellCost: false,
+      error: true
     }
   },
   methods: {
     start: async function (options) {
+      this.error = false
       this.showCellCost = options.showCellCost
       this.processing = true
       this.cleanPath()
@@ -68,7 +77,14 @@ export default {
 
       /** Generate the path **/
       let generator = new PathGenerator(this.startPosition, this.endPosition, this.map)
-      generator.generate()
+      try {
+        generator.generate()
+      }
+      catch (e) {
+        this.error = true
+        this.processing = false
+        return
+      }
 
       this.timeElapsed = Math.round(new Date() - startTime)
       if (options.showAnimation) {
@@ -120,16 +136,20 @@ export default {
 }
 </script>
 
-<style>
-html {
-  background: #d4d4d4;
-}
-#app {
-  display: flex;
-  margin: 30px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-}
+<style lang="sass">
+html
+  background: #d4d4d4
+
+#app
+  display: flex
+  margin: 30px
+  align-items: center
+  justify-content: center
+  flex-direction: column
+  text-align: center
+
+.message
+  position: fixed
+  bottom: 1rem
+  right: 1rem
 </style>
