@@ -68,9 +68,9 @@ export default {
     }
   },
   methods: {
-    start: async function (options) {
+    start: async function ({ showCellCost, showAnimation }) {
       this.error = false
-      this.showCellCost = options.showCellCost
+      this.showCellCost = showCellCost
       this.processing = true
       this.cleanPath()
       let startTime = new Date()
@@ -87,7 +87,7 @@ export default {
       }
 
       this.timeElapsed = Math.round(new Date() - startTime)
-      if (options.showAnimation) {
+      if (showAnimation) {
         await Promise.all(generator.cells.map(async (x) => {
           await new Promise(r => setTimeout(r, 25))
           this.cellsProcessed.push(x)
