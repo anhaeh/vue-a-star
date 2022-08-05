@@ -43,7 +43,7 @@ class PathGenerator {
     this.currentCell = this.cells[0]
     try {
       this.findPath()
-      let lastNode = this.cells.filter(cell => cell.cost < 1)[0]
+      let lastNode = this.cells.find(cell => cell.cost < 1)
       this.path = []
       for(;;) {
         this.path.push(lastNode)

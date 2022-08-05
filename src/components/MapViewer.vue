@@ -75,7 +75,6 @@ export default {
 
 <style scoped lang="sass">
   .map
-    overflow: auto
     display: flex
     justify-content: center
     flex-direction: column

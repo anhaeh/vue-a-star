@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "a-star-vue"
-  }
+    "default": "a-star-vue",
+    "a-star-vue": "andres-haehnel-cv"
+  },
+  "targets": {}
 }
