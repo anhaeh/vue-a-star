@@ -64,7 +64,7 @@ export default {
       timeElapsed: 0,
       processing: false,
       showCellCost: false,
-      error: true
+      error: false
     }
   },
   methods: {
